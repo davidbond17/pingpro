@@ -22,6 +22,7 @@
 		B28B66AD1321F3B7ED220960 /* PingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463CF71C32AD784BEC382AA4 /* PingService.swift */; };
 		B40FFA80B82EFA9298A3F875 /* Color+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D3FD9493D02F773E7DB560 /* Color+Theme.swift */; };
 		C2E11B1BDA8BBA8CD2A9DB41 /* PingProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8EB25680187E40454F7AC5 /* PingProApp.swift */; };
+		C8798ED764B56B3557556DF3 /* PingChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F49E3339F8E0390CB87710A /* PingChartView.swift */; };
 		CD0D8A4B3D16FF8F0F5F394B /* PingMonitorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AA3C4F9F053A1D4CC837BC /* PingMonitorViewModel.swift */; };
 		CD18E788461F2DC3B418883A /* ConnectionQualityBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C5E27D1DF0F71E1B6104FD /* ConnectionQualityBadge.swift */; };
 		D1EFE7E470AEE5E0283DA059 /* MonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D3522E9519F9592DAE523A /* MonitorView.swift */; };
@@ -40,6 +41,7 @@
 		53C48078C82B6EA84153FD32 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7F41CA126A13DC50B2679C43 /* NetworkTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTheme.swift; sourceTree = "<group>"; };
 		8CD9C004F4DBBF41A859E440 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		8F49E3339F8E0390CB87710A /* PingChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PingChartView.swift; sourceTree = "<group>"; };
 		9700499700FC01BC94AD0342 /* PingPro.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PingPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D803D41F819B76AE5012006 /* Double+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Formatting.swift"; sourceTree = "<group>"; };
 		AC6E18399606904D4D96D48F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				F2D3522E9519F9592DAE523A /* MonitorView.swift */,
+				8F49E3339F8E0390CB87710A /* PingChartView.swift */,
 			);
 			path = Monitor;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				3BD75B690965C756A256A2F0 /* NetworkType.swift in Sources */,
 				5262A06AAA9A9D79BF6F8C3E /* NetworkTypeIndicator.swift in Sources */,
 				9E6D39E03CE37B011A33C155 /* PersistenceManager.swift in Sources */,
+				C8798ED764B56B3557556DF3 /* PingChartView.swift in Sources */,
 				CD0D8A4B3D16FF8F0F5F394B /* PingMonitorViewModel.swift in Sources */,
 				C2E11B1BDA8BBA8CD2A9DB41 /* PingProApp.swift in Sources */,
 				4B9EA1BA0A99CEDFE687C90A /* PingResult.swift in Sources */,

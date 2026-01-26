@@ -15,7 +15,7 @@ struct MonitorView: View {
                     VStack(spacing: 24) {
                         headerSection(viewModel: viewModel)
 
-                        chartPlaceholder
+                        chartSection(viewModel: viewModel)
 
                         statsGrid(viewModel: viewModel)
 
@@ -49,19 +49,12 @@ struct MonitorView: View {
         }
     }
 
-    private var chartPlaceholder: some View {
+    private func chartSection(viewModel: PingMonitorViewModel) -> some View {
         GlassCard {
-            VStack {
-                Text("Chart")
-                    .font(.system(size: 18, weight: .semibold, design: .rounded))
-                    .foregroundStyle(NetworkTheme.textSecondary)
-
-                Text("Coming in Phase 6")
-                    .font(.system(size: 14, design: .rounded))
-                    .foregroundStyle(NetworkTheme.textTertiary)
-            }
-            .frame(height: 200)
-            .frame(maxWidth: .infinity)
+            PingChartView(
+                results: viewModel.recentResults,
+                avgLatency: viewModel.avgLatency
+            )
         }
     }
 
