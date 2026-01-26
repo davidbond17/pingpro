@@ -1,0 +1,17 @@
+name: PingPro
+options:
+  bundleIdPrefix: com.portfolio.vibe
+  createIntermediateGroups: true
+targets:
+  PingPro:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: PingPro
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        SWIFT_VERSION: 5.0
+    dependencies: []
