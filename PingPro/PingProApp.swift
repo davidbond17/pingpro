@@ -7,6 +7,6 @@ struct PingProApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: [PingResult.self, PingSession.self])
+        .modelContainer(PersistenceManager.shared.container)
     }
 }
