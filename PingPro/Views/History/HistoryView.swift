@@ -7,8 +7,7 @@ struct HistoryView: View {
 
     var body: some View {
         ZStack {
-            NetworkTheme.backgroundDeep
-                .ignoresSafeArea()
+            NetworkBackground()
 
             if sessions.isEmpty {
                 emptyState
@@ -63,6 +62,10 @@ struct SessionCard: View {
                 HStack {
                     NetworkTypeIndicator(networkType: session.networkType)
 
+                    if let score = session.qualityScore {
+                        qualityBadge(score: score, tier: session.qualityResult.tier)
+                    }
+
                     Spacer()
 
                     Text(session.startTime, format: .dateTime.month().day().hour().minute())
@@ -96,6 +99,35 @@ struct SessionCard: View {
             Text(value)
                 .font(.system(size: 14, weight: .semibold, design: .monospaced))
                 .foregroundStyle(NetworkTheme.textPrimary)
+        }
+    }
+
+    private func qualityBadge(score: Int, tier: ConnectionQualityTier) -> some View {
+        HStack(spacing: 6) {
+            Text("\(score)")
+                .font(.system(size: 14, weight: .bold, design: .rounded))
+                .foregroundStyle(.white)
+
+            Text(tier.rawValue)
+                .font(.system(size: 11, weight: .medium, design: .rounded))
+                .foregroundStyle(.white.opacity(0.9))
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 6)
+        .background(tierColor(tier))
+        .clipShape(Capsule())
+    }
+
+    private func tierColor(_ tier: ConnectionQualityTier) -> Color {
+        switch tier {
+        case .excellent:
+            return NetworkTheme.accentGreen
+        case .good:
+            return NetworkTheme.accent
+        case .fair:
+            return NetworkTheme.accentOrange
+        case .poor:
+            return NetworkTheme.accentRed
         }
     }
 }

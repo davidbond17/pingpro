@@ -18,6 +18,8 @@ final class PingMonitorViewModel {
     private(set) var avgLatency: Double?
     private(set) var packetLoss: Double = 0.0
     private(set) var currentLatency: Double?
+    private(set) var qualityScore: Int = 0
+    private(set) var qualityTier: ConnectionQualityTier = .poor
 
     private var pingTask: Task<Void, Never>?
     private let networkMonitor: NetworkMonitor
@@ -30,8 +32,27 @@ final class PingMonitorViewModel {
         self.modelContext = modelContext
         self.networkMonitor = NetworkMonitor()
         self.pingService = PingService.shared
+        self.currentNetworkType = networkMonitor.currentNetworkType
 
-        observeNetworkChanges()
+        fixOrphanedSessions()
+    }
+
+    private func fixOrphanedSessions() {
+        let descriptor = FetchDescriptor<PingSession>(
+            predicate: #Predicate { $0.endTime == nil }
+        )
+
+        if let orphanedSessions = try? modelContext.fetch(descriptor) {
+            for session in orphanedSessions {
+                if let lastResult = session.results.last {
+                    session.endTime = lastResult.timestamp
+                } else {
+                    session.endTime = session.startTime
+                }
+            }
+
+            try? modelContext.save()
+        }
     }
 
     func startMonitoring() {
@@ -53,25 +74,22 @@ final class PingMonitorViewModel {
         startPingLoop()
     }
 
-    func pauseMonitoring() {
+    func stopMonitoring() {
         guard isMonitoring else { return }
 
         isMonitoring = false
         pingTask?.cancel()
         pingTask = nil
-    }
 
-    func stopAndSaveSession() {
-        guard let session = currentSession else { return }
+        if let session = currentSession {
+            session.endTime = Date()
+            session.qualityScore = qualityScore
 
-        pauseMonitoring()
-
-        session.endTime = Date()
-
-        do {
-            try modelContext.save()
-        } catch {
-            print("Failed to save session: \(error)")
+            do {
+                try modelContext.save()
+            } catch {
+                print("Failed to save session: \(error)")
+            }
         }
 
         currentSession = nil
@@ -89,7 +107,7 @@ final class PingMonitorViewModel {
         AppSettings.pingInterval = newInterval
 
         if isMonitoring {
-            pauseMonitoring()
+            stopMonitoring()
             startMonitoring()
         }
     }
@@ -97,9 +115,13 @@ final class PingMonitorViewModel {
     private func startPingLoop() {
         pingTask = Task { [weak self] in
             while !Task.isCancelled {
-                await self?.executePing()
+                guard let self = self else { break }
 
-                guard let interval = self?.pingInterval else { break }
+                self.currentNetworkType = self.networkMonitor.currentNetworkType
+
+                await self.executePing()
+
+                let interval = self.pingInterval
                 try? await Task.sleep(nanoseconds: UInt64(interval * 1_000_000_000))
             }
         }
@@ -144,6 +166,15 @@ final class PingMonitorViewModel {
         }
 
         currentLatency = recentResults.last?.latency
+
+        let qualityResult = ConnectionQualityCalculator.calculateScore(
+            avgLatency: avgLatency,
+            minLatency: minLatency,
+            maxLatency: maxLatency,
+            packetLoss: packetLoss
+        )
+        qualityScore = qualityResult.score
+        qualityTier = qualityResult.tier
     }
 
     private func resetStats() {
@@ -154,42 +185,10 @@ final class PingMonitorViewModel {
         currentLatency = nil
     }
 
-    private func observeNetworkChanges() {
-        Task { [weak self] in
-            while true {
-                guard let self = self else { break }
-
-                let newNetworkType = self.networkMonitor.currentNetworkType
-
-                if self.isMonitoring && newNetworkType != self.currentNetworkType {
-                    self.handleNetworkChange(to: newNetworkType)
-                }
-
-                self.currentNetworkType = newNetworkType
-
-                try? await Task.sleep(nanoseconds: 1_000_000_000)
-            }
-        }
-    }
-
-    private func handleNetworkChange(to newType: NetworkType) {
-        let preference = AppSettings.networkPreference
-
-        switch preference {
-        case .auto:
-            currentNetworkType = newType
-        case .wifiOnly:
-            if newType != .wifi {
-                pauseMonitoring()
-            }
-        case .cellularOnly:
-            if newType != .cellular {
-                pauseMonitoring()
-            }
-        }
-    }
-
     func cleanup() {
+        if isMonitoring {
+            stopMonitoring()
+        }
         pingTask?.cancel()
         networkMonitor.stopMonitoring()
     }

@@ -3,32 +3,47 @@ import SwiftData
 
 struct MonitorView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.scenePhase) private var scenePhase
     @State private var viewModel: PingMonitorViewModel?
 
     var body: some View {
         ZStack {
-            NetworkTheme.backgroundDeep
-                .ignoresSafeArea()
+            NetworkBackground()
 
-            if let viewModel = viewModel {
-                ScrollView {
-                    VStack(spacing: 24) {
-                        headerSection(viewModel: viewModel)
+            VStack(spacing: 0) {
+                if let viewModel = viewModel {
+                    headerSection(viewModel: viewModel)
+                        .padding(.horizontal, 20)
+                        .padding(.top, 8)
 
-                        chartSection(viewModel: viewModel)
+                    ScrollView(showsIndicators: false) {
+                        VStack(spacing: 14) {
+                            QualityScoreView(
+                                score: viewModel.qualityScore,
+                                tier: viewModel.qualityTier
+                            )
+                            .padding(.horizontal, 20)
 
-                        statsGrid(viewModel: viewModel)
+                            chartSection(viewModel: viewModel)
+                                .padding(.horizontal, 20)
 
-                        qualityBadge(viewModel: viewModel)
+                            statsGrid(viewModel: viewModel)
+                                .padding(.horizontal, 20)
+
+                            qualityBadge(viewModel: viewModel)
+
+                            NetworkExplainer(
+                                avgLatency: viewModel.avgLatency,
+                                packetLoss: viewModel.packetLoss
+                            )
+                            .padding(.horizontal, 20)
+
+                            controlButton(viewModel: viewModel)
+                                .padding(.horizontal, 20)
+                        }
+                        .padding(.top, 12)
+                        .padding(.bottom, 16)
                     }
-                    .padding()
-                    .padding(.top)
-                }
-
-                VStack {
-                    Spacer()
-                    controlButton(viewModel: viewModel)
-                        .padding(.bottom, 40)
                 }
             }
         }
@@ -37,13 +52,35 @@ struct MonitorView: View {
                 viewModel = PingMonitorViewModel(modelContext: modelContext)
             }
         }
+        .onDisappear {
+            viewModel?.cleanup()
+        }
+        .onChange(of: scenePhase) {
+            if scenePhase == .background || scenePhase == .inactive {
+                viewModel?.cleanup()
+            }
+        }
     }
 
     private func headerSection(viewModel: PingMonitorViewModel) -> some View {
-        VStack(spacing: 12) {
-            Text("PingPro")
-                .font(.system(size: 32, weight: .bold, design: .rounded))
-                .foregroundStyle(.white)
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("PingPro")
+                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [.white, Color.white.opacity(0.8)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+
+                Text("Network Monitor")
+                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .foregroundStyle(NetworkTheme.textSecondary)
+            }
+
+            Spacer()
 
             NetworkTypeIndicator(networkType: viewModel.currentNetworkType)
         }
@@ -62,7 +99,7 @@ struct MonitorView: View {
         LazyVGrid(columns: [
             GridItem(.flexible()),
             GridItem(.flexible())
-        ], spacing: 12) {
+        ], spacing: 10) {
             StatsCardView(
                 title: "Min",
                 value: viewModel.minLatency.map { String(format: "%.0f", $0) } ?? "--",
@@ -104,24 +141,38 @@ struct MonitorView: View {
     private func controlButton(viewModel: PingMonitorViewModel) -> some View {
         Button(action: {
             if viewModel.isMonitoring {
-                viewModel.pauseMonitoring()
+                viewModel.stopMonitoring()
             } else {
                 viewModel.startMonitoring()
             }
         }) {
-            HStack(spacing: 12) {
-                Image(systemName: viewModel.isMonitoring ? "pause.fill" : "play.fill")
-                    .font(.system(size: 24, weight: .bold))
+            ZStack {
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(
+                        LinearGradient(
+                            colors: viewModel.isMonitoring ? [
+                                NetworkTheme.accentRed,
+                                NetworkTheme.accentRed.opacity(0.8)
+                            ] : [
+                                NetworkTheme.accentGreen,
+                                NetworkTheme.accentGreen.opacity(0.8)
+                            ],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .shadow(color: (viewModel.isMonitoring ? NetworkTheme.accentRed : NetworkTheme.accentGreen).opacity(0.5), radius: 15, y: 8)
 
-                Text(viewModel.isMonitoring ? "Pause" : "Start")
-                    .font(.system(size: 20, weight: .bold, design: .rounded))
+                HStack(spacing: 12) {
+                    Image(systemName: viewModel.isMonitoring ? "stop.circle.fill" : "play.circle.fill")
+                        .font(.system(size: 28, weight: .semibold))
+
+                    Text(viewModel.isMonitoring ? "Stop Monitoring" : "Start Monitoring")
+                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                }
+                .foregroundStyle(.white)
             }
-            .foregroundStyle(.white)
-            .frame(maxWidth: 200)
-            .padding(.vertical, 18)
-            .background(viewModel.isMonitoring ? NetworkTheme.accentOrange : NetworkTheme.accentGreen)
-            .clipShape(Capsule())
-            .shadow(color: (viewModel.isMonitoring ? NetworkTheme.accentOrange : NetworkTheme.accentGreen).opacity(0.4), radius: 20, y: 10)
+            .frame(height: 56)
         }
         .sensoryFeedback(.impact(flexibility: .soft), trigger: viewModel.isMonitoring)
     }

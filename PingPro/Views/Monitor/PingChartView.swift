@@ -125,25 +125,40 @@ struct PingChartView: View {
         }
         .chartYScale(domain: 0...(maxLatencyForScale * 1.1))
         .chartXSelection(value: $selectedTimestamp)
-        .frame(height: 200)
+        .frame(height: 220)
         .animation(.easeInOut(duration: 0.3), value: results.count)
     }
 
     private var emptyState: some View {
-        VStack(spacing: 12) {
-            Image(systemName: "chart.line.uptrend.xyaxis")
-                .font(.system(size: 40))
-                .foregroundStyle(NetworkTheme.textTertiary)
+        VStack(spacing: 16) {
+            ZStack {
+                Circle()
+                    .fill(NetworkTheme.accent.opacity(0.1))
+                    .frame(width: 80, height: 80)
+                    .blur(radius: 10)
 
-            Text("No data yet")
-                .font(.system(size: 16, weight: .medium, design: .rounded))
-                .foregroundStyle(NetworkTheme.textSecondary)
+                Image(systemName: "waveform.path.ecg")
+                    .font(.system(size: 44, weight: .medium))
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [NetworkTheme.accent, NetworkTheme.accent.opacity(0.6)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+            }
 
-            Text("Start monitoring to see latency chart")
-                .font(.system(size: 12, design: .rounded))
-                .foregroundStyle(NetworkTheme.textTertiary)
+            VStack(spacing: 6) {
+                Text("No Data Yet")
+                    .font(.system(size: 18, weight: .semibold, design: .rounded))
+                    .foregroundStyle(NetworkTheme.textPrimary)
+
+                Text("Start monitoring to see live latency")
+                    .font(.system(size: 13, design: .rounded))
+                    .foregroundStyle(NetworkTheme.textTertiary)
+            }
         }
-        .frame(height: 200)
+        .frame(height: 220)
         .frame(maxWidth: .infinity)
     }
 

@@ -8,6 +8,7 @@ final class PingSession {
     var endTime: Date?
     var host: String
     var networkType: NetworkType
+    var qualityScore: Int?
 
     @Relationship(deleteRule: .cascade)
     var results: [PingResult]
@@ -18,6 +19,7 @@ final class PingSession {
         endTime: Date? = nil,
         host: String,
         networkType: NetworkType,
+        qualityScore: Int? = nil,
         results: [PingResult] = []
     ) {
         self.id = id
@@ -25,6 +27,7 @@ final class PingSession {
         self.endTime = endTime
         self.host = host
         self.networkType = networkType
+        self.qualityScore = qualityScore
         self.results = results
     }
 
@@ -63,5 +66,14 @@ final class PingSession {
         } else {
             return "\(seconds)s"
         }
+    }
+
+    var qualityResult: ConnectionQualityResult {
+        ConnectionQualityCalculator.calculateScore(
+            avgLatency: avgLatency,
+            minLatency: minLatency,
+            maxLatency: maxLatency,
+            packetLoss: packetLoss
+        )
     }
 }

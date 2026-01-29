@@ -15,8 +15,7 @@ struct SettingsView: View {
 
     var body: some View {
         ZStack {
-            NetworkTheme.backgroundDeep
-                .ignoresSafeArea()
+            NetworkBackground()
 
             ScrollView {
                 VStack(spacing: 24) {

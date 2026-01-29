@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,12 +18,17 @@
 		4B9EA1BA0A99CEDFE687C90A /* PingResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FECD884549DAB1963BD9868 /* PingResult.swift */; };
 		502F5142B829F6FA608F48E6 /* PingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38533F1527EC51036E050314 /* PingSession.swift */; };
 		5262A06AAA9A9D79BF6F8C3E /* NetworkTypeIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7370E7021B3318DF582808A /* NetworkTypeIndicator.swift */; };
+		537A2BE54AC1FAA977888F1B /* NetworkBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82BAAED116BB143FAE414C9 /* NetworkBackground.swift */; };
 		5A53F7B006669EEA9CCA58E1 /* UserDefaults+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED81A39CD04FD6D7A198351 /* UserDefaults+Settings.swift */; };
 		7AACB67C95A6F5A25A5ECF49 /* StatsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187461BF58749B4AF5F6EBF9 /* StatsCardView.swift */; };
 		9E6D39E03CE37B011A33C155 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD9C004F4DBBF41A859E440 /* PersistenceManager.swift */; };
 		B28B66AD1321F3B7ED220960 /* PingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463CF71C32AD784BEC382AA4 /* PingService.swift */; };
 		B40FFA80B82EFA9298A3F875 /* Color+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D3FD9493D02F773E7DB560 /* Color+Theme.swift */; };
 		BAA36552395ED7692F4831DF /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09F3671E3577D429923864F /* HistoryView.swift */; };
+		BFBCD3C42F29331B00CE0824 /* ConnectionInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBCD3C22F29331B00CE0824 /* ConnectionInsights.swift */; };
+		BFBCD3C52F29331B00CE0824 /* NetworkExplainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBCD3C32F29331B00CE0824 /* NetworkExplainer.swift */; };
+		BFBCD3C92F2AEFD200CE0824 /* ConnectionQualityCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBCD3C82F2AEFD200CE0824 /* ConnectionQualityCalculator.swift */; };
+		BFBCD3CB2F2AEFE300CE0824 /* QualityScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBCD3CA2F2AEFE300CE0824 /* QualityScoreView.swift */; };
 		C2E11B1BDA8BBA8CD2A9DB41 /* PingProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8EB25680187E40454F7AC5 /* PingProApp.swift */; };
 		C8798ED764B56B3557556DF3 /* PingChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F49E3339F8E0390CB87710A /* PingChartView.swift */; };
 		CD0D8A4B3D16FF8F0F5F394B /* PingMonitorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AA3C4F9F053A1D4CC837BC /* PingMonitorViewModel.swift */; };
@@ -48,10 +53,15 @@
 		7F41CA126A13DC50B2679C43 /* NetworkTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTheme.swift; sourceTree = "<group>"; };
 		8CD9C004F4DBBF41A859E440 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		8F49E3339F8E0390CB87710A /* PingChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PingChartView.swift; sourceTree = "<group>"; };
-		9700499700FC01BC94AD0342 /* PingPro.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PingPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9700499700FC01BC94AD0342 /* PingPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PingPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D803D41F819B76AE5012006 /* Double+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Formatting.swift"; sourceTree = "<group>"; };
+		A82BAAED116BB143FAE414C9 /* NetworkBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkBackground.swift; sourceTree = "<group>"; };
 		AC6E18399606904D4D96D48F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6AA3C4F9F053A1D4CC837BC /* PingMonitorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PingMonitorViewModel.swift; sourceTree = "<group>"; };
+		BFBCD3C22F29331B00CE0824 /* ConnectionInsights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionInsights.swift; sourceTree = "<group>"; };
+		BFBCD3C32F29331B00CE0824 /* NetworkExplainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkExplainer.swift; sourceTree = "<group>"; };
+		BFBCD3C82F2AEFD200CE0824 /* ConnectionQualityCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionQualityCalculator.swift; sourceTree = "<group>"; };
+		BFBCD3CA2F2AEFE300CE0824 /* QualityScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualityScoreView.swift; sourceTree = "<group>"; };
 		C074C5EFEFBBBDAC68AB560A /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		C1B62BCF739871D657FB4329 /* SessionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailView.swift; sourceTree = "<group>"; };
 		CA8EB25680187E40454F7AC5 /* PingProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PingProApp.swift; sourceTree = "<group>"; };
@@ -81,6 +91,7 @@
 		11A1C62FC1426ABFDEADDAB4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				BFBCD3C82F2AEFD200CE0824 /* ConnectionQualityCalculator.swift */,
 				C074C5EFEFBBBDAC68AB560A /* NetworkMonitor.swift */,
 				8CD9C004F4DBBF41A859E440 /* PersistenceManager.swift */,
 				463CF71C32AD784BEC382AA4 /* PingService.swift */,
@@ -189,8 +200,12 @@
 		DAE26BFBEDE9D2E44BF7613E /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				BFBCD3CA2F2AEFE300CE0824 /* QualityScoreView.swift */,
+				BFBCD3C22F29331B00CE0824 /* ConnectionInsights.swift */,
+				BFBCD3C32F29331B00CE0824 /* NetworkExplainer.swift */,
 				35C5E27D1DF0F71E1B6104FD /* ConnectionQualityBadge.swift */,
 				2B9F20BAC6806AD31D63A846 /* GlassCard.swift */,
+				A82BAAED116BB143FAE414C9 /* NetworkBackground.swift */,
 				D7370E7021B3318DF582808A /* NetworkTypeIndicator.swift */,
 				187461BF58749B4AF5F6EBF9 /* StatsCardView.swift */,
 			);
@@ -237,7 +252,6 @@
 			);
 			mainGroup = 8E0E4B8EA1CDA0D981EB4E46;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -263,13 +277,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				B40FFA80B82EFA9298A3F875 /* Color+Theme.swift in Sources */,
+				BFBCD3CB2F2AEFE300CE0824 /* QualityScoreView.swift in Sources */,
 				CD18E788461F2DC3B418883A /* ConnectionQualityBadge.swift in Sources */,
 				E8B2ABB398248298FF699687 /* ContentView.swift in Sources */,
 				42D72D79E4B71D43CB7E484C /* Double+Formatting.swift in Sources */,
 				175DF7D4A52A867087300790 /* GlassCard.swift in Sources */,
+				BFBCD3C42F29331B00CE0824 /* ConnectionInsights.swift in Sources */,
+				BFBCD3C52F29331B00CE0824 /* NetworkExplainer.swift in Sources */,
 				BAA36552395ED7692F4831DF /* HistoryView.swift in Sources */,
 				2E96A11E2161C7C2D95AC51F /* MainTabView.swift in Sources */,
 				D1EFE7E470AEE5E0283DA059 /* MonitorView.swift in Sources */,
+				537A2BE54AC1FAA977888F1B /* NetworkBackground.swift in Sources */,
 				13EF681ACF4379A3AA689D2E /* NetworkMonitor.swift in Sources */,
 				09D82257050D87186722F72A /* NetworkTheme.swift in Sources */,
 				3BD75B690965C756A256A2F0 /* NetworkType.swift in Sources */,
@@ -279,6 +297,7 @@
 				CD0D8A4B3D16FF8F0F5F394B /* PingMonitorViewModel.swift in Sources */,
 				C2E11B1BDA8BBA8CD2A9DB41 /* PingProApp.swift in Sources */,
 				4B9EA1BA0A99CEDFE687C90A /* PingResult.swift in Sources */,
+				BFBCD3C92F2AEFD200CE0824 /* ConnectionQualityCalculator.swift in Sources */,
 				B28B66AD1321F3B7ED220960 /* PingService.swift in Sources */,
 				502F5142B829F6FA608F48E6 /* PingSession.swift in Sources */,
 				2B2C7524C08BA1C6300E48F2 /* SessionDetailView.swift in Sources */,
@@ -351,7 +370,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 24B5N75QKW;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -431,7 +452,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 24B5N75QKW;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

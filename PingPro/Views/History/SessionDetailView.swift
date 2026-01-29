@@ -9,11 +9,7 @@ struct SessionDetailView: View {
     @State private var showDeleteAlert = false
 
     var body: some View {
-        ZStack {
-            NetworkTheme.backgroundDeep
-                .ignoresSafeArea()
-
-            ScrollView {
+        ScrollView {
                 VStack(spacing: 24) {
                     header
 
@@ -30,7 +26,6 @@ struct SessionDetailView: View {
                 }
                 .padding()
                 .padding(.top)
-            }
         }
         .alert("Delete Session", isPresented: $showDeleteAlert) {
             Button("Cancel", role: .cancel) {}
