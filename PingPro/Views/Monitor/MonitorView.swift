@@ -38,6 +38,12 @@ struct MonitorView: View {
                             )
                             .padding(.horizontal, 20)
 
+                            ActivityRecommendationsView(
+                                avgLatency: viewModel.avgLatency,
+                                packetLoss: viewModel.packetLoss
+                            )
+                            .padding(.horizontal, 20)
+
                             controlButton(viewModel: viewModel)
                                 .padding(.horizontal, 20)
                         }

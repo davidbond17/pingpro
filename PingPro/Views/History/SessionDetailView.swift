@@ -22,6 +22,11 @@ struct SessionDetailView: View {
 
                     statsSection
 
+                    ActivityRecommendationsView(
+                        avgLatency: session.avgLatency,
+                        packetLoss: session.packetLoss
+                    )
+
                     deleteButton
                 }
                 .padding()
