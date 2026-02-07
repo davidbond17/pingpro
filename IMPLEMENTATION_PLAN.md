@@ -151,55 +151,39 @@
 
 ---
 
-## Phase 5: Troubleshooting Guide (High Priority, Low Effort)
+## Phase 5: Troubleshooting Guide (High Priority, Low Effort) - COMPLETE ✅
 **Goal:** Give users actionable steps when connection is poor
 
 ### Tasks:
-1. Create `TroubleshootingView.swift`
-   - Wizard-style interface
-   - Steps based on current symptoms
+1. ✅ Create `TroubleshootingView.swift`
+   - ✅ Collapsible card interface
+   - ✅ Steps based on current symptoms (latency vs packet loss)
 
-2. Define troubleshooting flows:
-   ```
-   High Latency:
-   1. Check distance to router
-   2. Restart router
-   3. Check for interference
-   4. Switch to 5GHz if available
-   5. Contact ISP if persists
+2. ✅ Define troubleshooting flows:
+   - ✅ High Latency: Restart router, move closer, switch to 5GHz, close apps, check congestion
+   - ✅ High Packet Loss: Check interference, restart router, try wired, update firmware, contact ISP
+   - ✅ Cellular-specific: Suggest switching to WiFi
+   - ✅ Good connection: Tips for ongoing monitoring
 
-   High Packet Loss:
-   1. Check WiFi signal strength
-   2. Look for interference
-   3. Test wired connection
-   4. Check router logs
-   5. Contact ISP
+3. ✅ Add troubleshoot section to MonitorView
+   - ✅ Only appears when connection has issues (latency >100ms or loss >3%)
+   - ✅ Collapsible with "Tap to fix" prompt
 
-   Intermittent Connection:
-   1. Check for network congestion (too many devices)
-   2. Restart router
-   3. Update router firmware
-   4. Check ISP status page
-   ```
+4. ✅ Implement step tracking
+   - ✅ Tap-to-complete checkboxes for each step
+   - ✅ Visual strikethrough for completed steps
+   - ✅ "Restart monitoring to test again" prompt after completing steps
 
-3. Add "Troubleshoot" button in MonitorView
-   - Shows when connection is poor (score < 60)
-   - Navigates to guided troubleshooting
+5. ⏳ Success tracking (deferred)
+   - Learning which solutions work best deferred to future
 
-4. Implement step tracking
-   - Checkboxes for each step tried
-   - Notes field for each step
-   - "Test Again" button to re-run monitoring after each step
-
-5. Add success tracking
-   - If score improves after troubleshooting, mark solution as "worked"
-   - Learn which solutions work best for user
-   - Suggest those first next time
+**Status:** Complete
 
 **Deliverables:**
-- Self-service support
-- Reduces frustration
-- Educational for users
+- ✅ Context-aware troubleshooting based on current metrics
+- ✅ Interactive step-by-step checklist
+- ✅ Network-type aware recommendations
+- ✅ Only surfaces when issues detected
 
 ---
 

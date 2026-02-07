@@ -44,6 +44,13 @@ struct MonitorView: View {
                             )
                             .padding(.horizontal, 20)
 
+                            TroubleshootingView(
+                                avgLatency: viewModel.avgLatency,
+                                packetLoss: viewModel.packetLoss,
+                                networkType: viewModel.currentNetworkType
+                            )
+                            .padding(.horizontal, 20)
+
                             controlButton(viewModel: viewModel)
                                 .padding(.horizontal, 20)
                         }
