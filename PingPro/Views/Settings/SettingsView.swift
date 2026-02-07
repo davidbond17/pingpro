@@ -8,10 +8,15 @@ struct SettingsView: View {
     @AppStorage(UserDefaults.Keys.targetHost) private var targetHost = "8.8.8.8"
     @AppStorage(UserDefaults.Keys.pingInterval) private var pingInterval = 1.0
     @AppStorage(UserDefaults.Keys.dataRetentionDays) private var dataRetentionDays = 30
+    @AppStorage(UserDefaults.Keys.alertsEnabled) private var alertsEnabled = false
+    @AppStorage(UserDefaults.Keys.latencyThreshold) private var latencyThreshold = 150.0
+    @AppStorage(UserDefaults.Keys.packetLossThreshold) private var packetLossThreshold = 5.0
+    @AppStorage(UserDefaults.Keys.alertOnNetworkChange) private var alertOnNetworkChange = true
 
     @State private var showInvalidHostAlert = false
     @State private var showClearHistoryAlert = false
     @State private var tempHost: String = ""
+    @State private var showPermissionAlert = false
 
     var body: some View {
         ZStack {
@@ -28,6 +33,7 @@ struct SettingsView: View {
 
                     VStack(spacing: 16) {
                         pingConfigSection
+                        alertsSection
                         dataManagementSection
                         aboutSection
                     }
@@ -50,6 +56,16 @@ struct SettingsView: View {
             }
         } message: {
             Text("Are you sure you want to delete all session history?")
+        }
+        .alert("Notification Permission Required", isPresented: $showPermissionAlert) {
+            Button("OK", role: .cancel) {}
+            Button("Open Settings", role: .none) {
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(url)
+                }
+            }
+        } message: {
+            Text("Please enable notifications in Settings to receive connection alerts.")
         }
     }
 
@@ -109,6 +125,98 @@ struct SettingsView: View {
 
                     Slider(value: $pingInterval, in: 0.5...5.0, step: 0.5)
                         .tint(NetworkTheme.accent)
+                }
+            }
+        }
+    }
+
+    private var alertsSection: some View {
+        GlassCard {
+            VStack(alignment: .leading, spacing: 20) {
+                sectionHeader(title: "Alerts & Notifications")
+
+                VStack(alignment: .leading, spacing: 8) {
+                    Toggle(isOn: $alertsEnabled) {
+                        Text("Enable Alerts")
+                            .font(.system(size: 14, weight: .medium, design: .rounded))
+                            .foregroundStyle(NetworkTheme.textSecondary)
+                    }
+                    .tint(NetworkTheme.accent)
+                    .onChange(of: alertsEnabled) { oldValue, newValue in
+                        if newValue {
+                            requestNotificationPermission()
+                        }
+                    }
+
+                    Text("Get notified when connection quality changes")
+                        .font(.system(size: 12, design: .rounded))
+                        .foregroundStyle(NetworkTheme.textTertiary)
+                }
+
+                if alertsEnabled {
+                    Divider()
+                        .background(NetworkTheme.textTertiary.opacity(0.2))
+
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Text("Latency Alert")
+                                .font(.system(size: 14, weight: .medium, design: .rounded))
+                                .foregroundStyle(NetworkTheme.textSecondary)
+
+                            Spacer()
+
+                            Text(String(format: "%.0f ms", latencyThreshold))
+                                .font(.system(size: 14, weight: .semibold, design: .monospaced))
+                                .foregroundStyle(NetworkTheme.textPrimary)
+                        }
+
+                        Slider(value: $latencyThreshold, in: 50...500, step: 10)
+                            .tint(NetworkTheme.accent)
+
+                        Text("Alert when latency exceeds this threshold")
+                            .font(.system(size: 11, design: .rounded))
+                            .foregroundStyle(NetworkTheme.textTertiary)
+                    }
+
+                    Divider()
+                        .background(NetworkTheme.textTertiary.opacity(0.2))
+
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Text("Packet Loss Alert")
+                                .font(.system(size: 14, weight: .medium, design: .rounded))
+                                .foregroundStyle(NetworkTheme.textSecondary)
+
+                            Spacer()
+
+                            Text(String(format: "%.1f%%", packetLossThreshold))
+                                .font(.system(size: 14, weight: .semibold, design: .monospaced))
+                                .foregroundStyle(NetworkTheme.textPrimary)
+                        }
+
+                        Slider(value: $packetLossThreshold, in: 1...20, step: 1)
+                            .tint(NetworkTheme.accent)
+
+                        Text("Alert when packet loss exceeds this threshold")
+                            .font(.system(size: 11, design: .rounded))
+                            .foregroundStyle(NetworkTheme.textTertiary)
+                    }
+
+                    Divider()
+                        .background(NetworkTheme.textTertiary.opacity(0.2))
+
+                    VStack(alignment: .leading, spacing: 8) {
+                        Toggle(isOn: $alertOnNetworkChange) {
+                            Text("Network Change Alerts")
+                                .font(.system(size: 14, weight: .medium, design: .rounded))
+                                .foregroundStyle(NetworkTheme.textSecondary)
+                        }
+                        .tint(NetworkTheme.accent)
+
+                        Text("Get notified when switching between WiFi and Cellular")
+                            .font(.system(size: 11, design: .rounded))
+                            .foregroundStyle(NetworkTheme.textTertiary)
+                    }
                 }
             }
         }
@@ -215,5 +323,14 @@ struct SettingsView: View {
             modelContext.delete(session)
         }
         try? modelContext.save()
+    }
+
+    private func requestNotificationPermission() {
+        ConnectionAlertManager.shared.requestPermission { granted in
+            if !granted {
+                alertsEnabled = false
+                showPermissionAlert = true
+            }
+        }
     }
 }

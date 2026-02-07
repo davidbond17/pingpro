@@ -25,6 +25,9 @@
 		B28B66AD1321F3B7ED220960 /* PingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463CF71C32AD784BEC382AA4 /* PingService.swift */; };
 		B40FFA80B82EFA9298A3F875 /* Color+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D3FD9493D02F773E7DB560 /* Color+Theme.swift */; };
 		BAA36552395ED7692F4831DF /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09F3671E3577D429923864F /* HistoryView.swift */; };
+		BFB2B6FC2F37F1CB005B57E5 /* ActivityRecommender.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB2B6FA2F37F1CB005B57E5 /* ActivityRecommender.swift */; };
+		BFB2B6FD2F37F1CB005B57E5 /* ConnectionAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB2B6FB2F37F1CB005B57E5 /* ConnectionAlertManager.swift */; };
+		BFB2B6FF2F37F1DD005B57E5 /* ActivityRecommendationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB2B6FE2F37F1DD005B57E5 /* ActivityRecommendationsView.swift */; };
 		BFBCD3C42F29331B00CE0824 /* ConnectionInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBCD3C22F29331B00CE0824 /* ConnectionInsights.swift */; };
 		BFBCD3C52F29331B00CE0824 /* NetworkExplainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBCD3C32F29331B00CE0824 /* NetworkExplainer.swift */; };
 		BFBCD3C92F2AEFD200CE0824 /* ConnectionQualityCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBCD3C82F2AEFD200CE0824 /* ConnectionQualityCalculator.swift */; };
@@ -58,6 +61,9 @@
 		A82BAAED116BB143FAE414C9 /* NetworkBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkBackground.swift; sourceTree = "<group>"; };
 		AC6E18399606904D4D96D48F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6AA3C4F9F053A1D4CC837BC /* PingMonitorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PingMonitorViewModel.swift; sourceTree = "<group>"; };
+		BFB2B6FA2F37F1CB005B57E5 /* ActivityRecommender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRecommender.swift; sourceTree = "<group>"; };
+		BFB2B6FB2F37F1CB005B57E5 /* ConnectionAlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionAlertManager.swift; sourceTree = "<group>"; };
+		BFB2B6FE2F37F1DD005B57E5 /* ActivityRecommendationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRecommendationsView.swift; sourceTree = "<group>"; };
 		BFBCD3C22F29331B00CE0824 /* ConnectionInsights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionInsights.swift; sourceTree = "<group>"; };
 		BFBCD3C32F29331B00CE0824 /* NetworkExplainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkExplainer.swift; sourceTree = "<group>"; };
 		BFBCD3C82F2AEFD200CE0824 /* ConnectionQualityCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionQualityCalculator.swift; sourceTree = "<group>"; };
@@ -91,6 +97,8 @@
 		11A1C62FC1426ABFDEADDAB4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				BFB2B6FA2F37F1CB005B57E5 /* ActivityRecommender.swift */,
+				BFB2B6FB2F37F1CB005B57E5 /* ConnectionAlertManager.swift */,
 				BFBCD3C82F2AEFD200CE0824 /* ConnectionQualityCalculator.swift */,
 				C074C5EFEFBBBDAC68AB560A /* NetworkMonitor.swift */,
 				8CD9C004F4DBBF41A859E440 /* PersistenceManager.swift */,
@@ -200,6 +208,7 @@
 		DAE26BFBEDE9D2E44BF7613E /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				BFB2B6FE2F37F1DD005B57E5 /* ActivityRecommendationsView.swift */,
 				BFBCD3CA2F2AEFE300CE0824 /* QualityScoreView.swift */,
 				BFBCD3C22F29331B00CE0824 /* ConnectionInsights.swift */,
 				BFBCD3C32F29331B00CE0824 /* NetworkExplainer.swift */,
@@ -289,6 +298,7 @@
 				D1EFE7E470AEE5E0283DA059 /* MonitorView.swift in Sources */,
 				537A2BE54AC1FAA977888F1B /* NetworkBackground.swift in Sources */,
 				13EF681ACF4379A3AA689D2E /* NetworkMonitor.swift in Sources */,
+				BFB2B6FF2F37F1DD005B57E5 /* ActivityRecommendationsView.swift in Sources */,
 				09D82257050D87186722F72A /* NetworkTheme.swift in Sources */,
 				3BD75B690965C756A256A2F0 /* NetworkType.swift in Sources */,
 				5262A06AAA9A9D79BF6F8C3E /* NetworkTypeIndicator.swift in Sources */,
@@ -296,6 +306,8 @@
 				C8798ED764B56B3557556DF3 /* PingChartView.swift in Sources */,
 				CD0D8A4B3D16FF8F0F5F394B /* PingMonitorViewModel.swift in Sources */,
 				C2E11B1BDA8BBA8CD2A9DB41 /* PingProApp.swift in Sources */,
+				BFB2B6FC2F37F1CB005B57E5 /* ActivityRecommender.swift in Sources */,
+				BFB2B6FD2F37F1CB005B57E5 /* ConnectionAlertManager.swift in Sources */,
 				4B9EA1BA0A99CEDFE687C90A /* PingResult.swift in Sources */,
 				BFBCD3C92F2AEFD200CE0824 /* ConnectionQualityCalculator.swift in Sources */,
 				B28B66AD1321F3B7ED220960 /* PingService.swift in Sources */,

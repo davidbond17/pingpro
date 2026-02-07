@@ -7,6 +7,10 @@ extension UserDefaults {
         static let pingInterval = "pingInterval"
         static let networkPreference = "networkPreference"
         static let dataRetentionDays = "dataRetentionDays"
+        static let alertsEnabled = "alertsEnabled"
+        static let latencyThreshold = "latencyThreshold"
+        static let packetLossThreshold = "packetLossThreshold"
+        static let alertOnNetworkChange = "alertOnNetworkChange"
     }
 }
 
@@ -41,4 +45,16 @@ struct AppSettings {
 
     @AppStorage(UserDefaults.Keys.dataRetentionDays)
     static var dataRetentionDays: Int = 30
+
+    @AppStorage(UserDefaults.Keys.alertsEnabled)
+    static var alertsEnabled: Bool = false
+
+    @AppStorage(UserDefaults.Keys.latencyThreshold)
+    static var latencyThreshold: Double = 150.0
+
+    @AppStorage(UserDefaults.Keys.packetLossThreshold)
+    static var packetLossThreshold: Double = 5.0
+
+    @AppStorage(UserDefaults.Keys.alertOnNetworkChange)
+    static var alertOnNetworkChange: Bool = true
 }

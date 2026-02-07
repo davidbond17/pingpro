@@ -25,6 +25,8 @@ final class PingMonitorViewModel {
     private let networkMonitor: NetworkMonitor
     private let pingService: PingService
     private let modelContext: ModelContext
+    private var previousNetworkType: NetworkType?
+    private var previousQualityScore: Int = 0
 
     private let maxRecentResults = 60
 
@@ -175,6 +177,38 @@ final class PingMonitorViewModel {
         )
         qualityScore = qualityResult.score
         qualityTier = qualityResult.tier
+
+        checkAlerts()
+    }
+
+    private func checkAlerts() {
+        let thresholds = AlertThresholds(
+            latencyThreshold: AppSettings.latencyThreshold,
+            packetLossThreshold: AppSettings.packetLossThreshold,
+            isEnabled: AppSettings.alertsEnabled,
+            alertOnNetworkChange: AppSettings.alertOnNetworkChange
+        )
+
+        ConnectionAlertManager.shared.checkThresholds(
+            avgLatency: avgLatency,
+            packetLoss: packetLoss,
+            thresholds: thresholds
+        )
+
+        if let prevType = previousNetworkType,
+           prevType != currentNetworkType,
+           thresholds.alertOnNetworkChange {
+            ConnectionAlertManager.shared.notifyNetworkChange(
+                from: prevType,
+                to: currentNetworkType
+            )
+        }
+        previousNetworkType = currentNetworkType
+
+        if qualityScore > previousQualityScore + 20 {
+            ConnectionAlertManager.shared.notifyConnectionImproved(score: qualityScore)
+        }
+        previousQualityScore = qualityScore
     }
 
     private func resetStats() {
