@@ -41,6 +41,8 @@
 		E8B2ABB398248298FF699687 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C48078C82B6EA84153FD32 /* ContentView.swift */; };
 		F2E1D0C9B8A7F6E5D4C3B2A1 /* NetworkComparisonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6A7B8C9D0E1F2 /* NetworkComparisonView.swift */; };
 		C2B1A0F9E8D7C6B5A4F3E2D1 /* TroubleshootingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2F3A4B5C6D7E8F9A0B1C2 /* TroubleshootingView.swift */; };
+		D2C1B0A9F8E7D6C5B4A3F2E1 /* InsightsEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2A3B4C5D6E7F8A9B0C1D2 /* InsightsEngine.swift */; };
+		F4E3D2C1B0A9F8E7D6C5B4A3 /* InsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B4C5D6E7F8A9B0C1D2E3F4 /* InsightsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +81,8 @@
 		F2D3522E9519F9592DAE523A /* MonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorView.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F6A7B8C9D0E1F2 /* NetworkComparisonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkComparisonView.swift; sourceTree = "<group>"; };
 		D1E2F3A4B5C6D7E8F9A0B1C2 /* TroubleshootingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TroubleshootingView.swift; sourceTree = "<group>"; };
+		E1F2A3B4C5D6E7F8A9B0C1D2 /* InsightsEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsEngine.swift; sourceTree = "<group>"; };
+		A3B4C5D6E7F8A9B0C1D2E3F4 /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -104,6 +108,7 @@
 				BFB2B6FA2F37F1CB005B57E5 /* ActivityRecommender.swift */,
 				BFB2B6FB2F37F1CB005B57E5 /* ConnectionAlertManager.swift */,
 				BFBCD3C82F2AEFD200CE0824 /* ConnectionQualityCalculator.swift */,
+				E1F2A3B4C5D6E7F8A9B0C1D2 /* InsightsEngine.swift */,
 				C074C5EFEFBBBDAC68AB560A /* NetworkMonitor.swift */,
 				8CD9C004F4DBBF41A859E440 /* PersistenceManager.swift */,
 				463CF71C32AD784BEC382AA4 /* PingService.swift */,
@@ -125,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				F09F3671E3577D429923864F /* HistoryView.swift */,
+				A3B4C5D6E7F8A9B0C1D2E3F4 /* InsightsView.swift */,
 				A1B2C3D4E5F6A7B8C9D0E1F2 /* NetworkComparisonView.swift */,
 				C1B62BCF739871D657FB4329 /* SessionDetailView.swift */,
 			);
@@ -324,6 +330,8 @@
 				5A53F7B006669EEA9CCA58E1 /* UserDefaults+Settings.swift in Sources */,
 				F2E1D0C9B8A7F6E5D4C3B2A1 /* NetworkComparisonView.swift in Sources */,
 				C2B1A0F9E8D7C6B5A4F3E2D1 /* TroubleshootingView.swift in Sources */,
+				D2C1B0A9F8E7D6C5B4A3F2E1 /* InsightsEngine.swift in Sources */,
+				F4E3D2C1B0A9F8E7D6C5B4A3 /* InsightsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

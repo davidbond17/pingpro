@@ -24,6 +24,9 @@ struct HistoryView: View {
                         NetworkComparisonView(sessions: sessions)
                             .padding(.horizontal)
 
+                        InsightsView(sessions: sessions)
+                            .padding(.horizontal)
+
                         LazyVStack(spacing: 12) {
                             ForEach(sessions) { session in
                                 NavigationLink(destination: SessionDetailView(session: session)) {

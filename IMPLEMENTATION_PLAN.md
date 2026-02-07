@@ -187,43 +187,41 @@
 
 ---
 
-## Phase 6: Historical Insights & Trends (Medium Priority, Medium Effort)
+## Phase 6: Historical Insights & Trends (Medium Priority, Medium Effort) - COMPLETE ✅
 **Goal:** Help users understand their connection patterns over time
 
 ### Tasks:
-1. Create `InsightsEngine.swift` analytics
-   - Calculate daily/weekly/monthly averages
-   - Identify best/worst times of day
-   - Detect trends (improving/degrading)
-   - Compare to previous periods
+1. ✅ Create `InsightsEngine.swift` analytics
+   - ✅ Calculate weekly averages and score trends
+   - ✅ Identify best/worst times of day
+   - ✅ Detect trends (improving/declining/stable)
+   - ✅ Compare to previous week periods
+   - ✅ Calculate connection consistency (standard deviation)
 
-2. Create `InsightsView.swift`
-   - Accessible from History tab
-   - Cards showing:
-     - "Your connection is 15% better than last week"
-     - "WiFi is typically best in the morning (6am-10am)"
-     - "Your worst connection day is Sunday"
-     - "You've improved 20 points since you started monitoring"
+2. ✅ Create `InsightsView.swift`
+   - ✅ Accessible from History tab
+   - ✅ Cards showing score trends, averages, best times, network comparison, consistency
+   - ✅ Color-coded insight categories (green/blue/orange/red)
 
-3. Add time-of-day breakdown
-   - Heatmap showing quality by hour of day
-   - Identify peak congestion times
-   - Recommend best times for important activities
+3. ✅ Add time-of-day breakdown
+   - ✅ Morning/Afternoon/Evening/Night breakdown
+   - ✅ Average latency and quality score per period
+   - ✅ Visual score bars with color coding
 
-4. Add network type breakdown
-   - % of time on WiFi vs Cellular
-   - Quality comparison chart
-   - Cost implications if on metered data
+4. ✅ Add network type comparison
+   - ✅ WiFi vs Cellular speed comparison insight
+   - ✅ Shows which network is faster and by how much
 
-5. Add location insights (future, requires CoreLocation)
-   - Track where monitoring sessions occurred
-   - "Your connection at Home averages 85"
-   - "Your connection at Coffee Shop averages 62"
+5. ⏳ Add location insights (future, requires CoreLocation)
+   - Not implemented - deferred to future enhancement
+
+**Status:** Complete
 
 **Deliverables:**
-- Understand connection patterns
-- Plan activities around best times
-- Track improvement over time
+- ✅ Understand connection patterns over time
+- ✅ Plan activities around best times of day
+- ✅ Track improvement with week-over-week trends
+- ✅ Connection consistency analysis
 
 ---
 
