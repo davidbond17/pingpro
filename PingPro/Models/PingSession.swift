@@ -9,7 +9,7 @@ final class PingSession {
     var host: String
     var networkType: NetworkType
     var qualityScore: Int?
-    var isBackgroundSession: Bool
+    var isBackgroundSession: Bool = false
 
     @Relationship(deleteRule: .cascade)
     var results: [PingResult]

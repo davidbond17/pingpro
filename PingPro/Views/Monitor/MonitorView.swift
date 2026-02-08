@@ -17,20 +17,20 @@ struct MonitorView: View {
                         .padding(.top, 8)
 
                     ScrollView(showsIndicators: false) {
-                        VStack(spacing: 14) {
+                        VStack(spacing: 12) {
                             QualityScoreView(
                                 score: viewModel.qualityScore,
-                                tier: viewModel.qualityTier
+                                tier: viewModel.qualityTier,
+                                currentLatency: viewModel.currentLatency,
+                                packetLoss: viewModel.packetLoss
                             )
                             .padding(.horizontal, 20)
 
                             chartSection(viewModel: viewModel)
                                 .padding(.horizontal, 20)
 
-                            statsGrid(viewModel: viewModel)
+                            statsRow(viewModel: viewModel)
                                 .padding(.horizontal, 20)
-
-                            qualityBadge(viewModel: viewModel)
 
                             NetworkExplainer(
                                 avgLatency: viewModel.avgLatency,
@@ -54,7 +54,7 @@ struct MonitorView: View {
                             controlButton(viewModel: viewModel)
                                 .padding(.horizontal, 20)
                         }
-                        .padding(.top, 12)
+                        .padding(.top, 10)
                         .padding(.bottom, 16)
                     }
                 }
@@ -77,20 +77,14 @@ struct MonitorView: View {
 
     private func headerSection(viewModel: PingMonitorViewModel) -> some View {
         HStack {
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 2) {
                 Text("PingPro")
-                    .font(.system(size: 28, weight: .bold, design: .rounded))
-                    .foregroundStyle(
-                        LinearGradient(
-                            colors: [.white, Color.white.opacity(0.8)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
+                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                    .foregroundStyle(.white)
 
                 Text("Network Monitor")
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
-                    .foregroundStyle(NetworkTheme.textSecondary)
+                    .font(.system(size: 11, weight: .medium, design: .rounded))
+                    .foregroundStyle(NetworkTheme.textTertiary)
             }
 
             Spacer()
@@ -108,11 +102,8 @@ struct MonitorView: View {
         }
     }
 
-    private func statsGrid(viewModel: PingMonitorViewModel) -> some View {
-        LazyVGrid(columns: [
-            GridItem(.flexible()),
-            GridItem(.flexible())
-        ], spacing: 10) {
+    private func statsRow(viewModel: PingMonitorViewModel) -> some View {
+        HStack(spacing: 8) {
             StatsCardView(
                 title: "Min",
                 value: viewModel.minLatency.map { String(format: "%.0f", $0) } ?? "--",
@@ -143,14 +134,6 @@ struct MonitorView: View {
         }
     }
 
-    private func qualityBadge(viewModel: PingMonitorViewModel) -> some View {
-        Group {
-            if let latency = viewModel.currentLatency {
-                ConnectionQualityBadge(quality: ConnectionQuality(latency: latency))
-            }
-        }
-    }
-
     private func controlButton(viewModel: PingMonitorViewModel) -> some View {
         Button(action: {
             if viewModel.isMonitoring {
@@ -174,18 +157,18 @@ struct MonitorView: View {
                             endPoint: .bottomTrailing
                         )
                     )
-                    .shadow(color: (viewModel.isMonitoring ? NetworkTheme.accentRed : NetworkTheme.accentGreen).opacity(0.5), radius: 15, y: 8)
+                    .shadow(color: (viewModel.isMonitoring ? NetworkTheme.accentRed : NetworkTheme.accentGreen).opacity(0.4), radius: 12, y: 6)
 
-                HStack(spacing: 12) {
+                HStack(spacing: 10) {
                     Image(systemName: viewModel.isMonitoring ? "stop.circle.fill" : "play.circle.fill")
-                        .font(.system(size: 28, weight: .semibold))
+                        .font(.system(size: 24, weight: .semibold))
 
                     Text(viewModel.isMonitoring ? "Stop Monitoring" : "Start Monitoring")
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                        .font(.system(size: 16, weight: .bold, design: .rounded))
                 }
                 .foregroundStyle(.white)
             }
-            .frame(height: 56)
+            .frame(height: 52)
         }
         .sensoryFeedback(.impact(flexibility: .soft), trigger: viewModel.isMonitoring)
     }
