@@ -43,6 +43,7 @@
 		C2B1A0F9E8D7C6B5A4F3E2D1 /* TroubleshootingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2F3A4B5C6D7E8F9A0B1C2 /* TroubleshootingView.swift */; };
 		D2C1B0A9F8E7D6C5B4A3F2E1 /* InsightsEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2A3B4C5D6E7F8A9B0C1D2 /* InsightsEngine.swift */; };
 		F4E3D2C1B0A9F8E7D6C5B4A3 /* InsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B4C5D6E7F8A9B0C1D2E3F4 /* InsightsView.swift */; };
+		B3A4C5D6E7F8A9B0C1D2E3F5 /* BackgroundMonitorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B5D6E7F8A9B0C1D2E3F4A5 /* BackgroundMonitorService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +84,7 @@
 		D1E2F3A4B5C6D7E8F9A0B1C2 /* TroubleshootingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TroubleshootingView.swift; sourceTree = "<group>"; };
 		E1F2A3B4C5D6E7F8A9B0C1D2 /* InsightsEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsEngine.swift; sourceTree = "<group>"; };
 		A3B4C5D6E7F8A9B0C1D2E3F4 /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
+		C4B5D6E7F8A9B0C1D2E3F4A5 /* BackgroundMonitorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMonitorService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				BFB2B6FA2F37F1CB005B57E5 /* ActivityRecommender.swift */,
+				C4B5D6E7F8A9B0C1D2E3F4A5 /* BackgroundMonitorService.swift */,
 				BFB2B6FB2F37F1CB005B57E5 /* ConnectionAlertManager.swift */,
 				BFBCD3C82F2AEFD200CE0824 /* ConnectionQualityCalculator.swift */,
 				E1F2A3B4C5D6E7F8A9B0C1D2 /* InsightsEngine.swift */,
@@ -332,6 +335,7 @@
 				C2B1A0F9E8D7C6B5A4F3E2D1 /* TroubleshootingView.swift in Sources */,
 				D2C1B0A9F8E7D6C5B4A3F2E1 /* InsightsEngine.swift in Sources */,
 				F4E3D2C1B0A9F8E7D6C5B4A3 /* InsightsView.swift in Sources */,
+				B3A4C5D6E7F8A9B0C1D2E3F5 /* BackgroundMonitorService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +404,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 24B5N75QKW;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PingPro/Info.plist;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -482,6 +487,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 24B5N75QKW;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PingPro/Info.plist;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (

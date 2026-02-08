@@ -12,6 +12,9 @@ struct SettingsView: View {
     @AppStorage(UserDefaults.Keys.latencyThreshold) private var latencyThreshold = 150.0
     @AppStorage(UserDefaults.Keys.packetLossThreshold) private var packetLossThreshold = 5.0
     @AppStorage(UserDefaults.Keys.alertOnNetworkChange) private var alertOnNetworkChange = true
+    @AppStorage(UserDefaults.Keys.backgroundMonitoringEnabled) private var backgroundMonitoringEnabled = false
+    @AppStorage(UserDefaults.Keys.backgroundMonitoringInterval) private var backgroundMonitoringInterval = 15.0
+    @AppStorage(UserDefaults.Keys.backgroundMonitoringWiFiOnly) private var backgroundMonitoringWiFiOnly = true
 
     @State private var showInvalidHostAlert = false
     @State private var showClearHistoryAlert = false
@@ -33,6 +36,7 @@ struct SettingsView: View {
 
                     VStack(spacing: 16) {
                         pingConfigSection
+                        backgroundMonitoringSection
                         alertsSection
                         dataManagementSection
                         aboutSection
@@ -125,6 +129,76 @@ struct SettingsView: View {
 
                     Slider(value: $pingInterval, in: 0.5...5.0, step: 0.5)
                         .tint(NetworkTheme.accent)
+                }
+            }
+        }
+    }
+
+    private var backgroundMonitoringSection: some View {
+        GlassCard {
+            VStack(alignment: .leading, spacing: 20) {
+                sectionHeader(title: "Background Monitoring")
+
+                VStack(alignment: .leading, spacing: 8) {
+                    Toggle(isOn: $backgroundMonitoringEnabled) {
+                        Text("Enable Background Pings")
+                            .font(.system(size: 14, weight: .medium, design: .rounded))
+                            .foregroundStyle(NetworkTheme.textSecondary)
+                    }
+                    .tint(NetworkTheme.accent)
+                    .onChange(of: backgroundMonitoringEnabled) { _, newValue in
+                        if newValue {
+                            BackgroundMonitorService.shared.scheduleBackgroundPing()
+                        } else {
+                            BackgroundMonitorService.shared.cancelScheduledTasks()
+                        }
+                    }
+
+                    Text("Periodically check your connection when the app is closed")
+                        .font(.system(size: 12, design: .rounded))
+                        .foregroundStyle(NetworkTheme.textTertiary)
+                }
+
+                if backgroundMonitoringEnabled {
+                    Divider()
+                        .background(NetworkTheme.textTertiary.opacity(0.2))
+
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Text("Check Interval")
+                                .font(.system(size: 14, weight: .medium, design: .rounded))
+                                .foregroundStyle(NetworkTheme.textSecondary)
+
+                            Spacer()
+
+                            Text(String(format: "%.0f min", backgroundMonitoringInterval))
+                                .font(.system(size: 14, weight: .semibold, design: .monospaced))
+                                .foregroundStyle(NetworkTheme.textPrimary)
+                        }
+
+                        Slider(value: $backgroundMonitoringInterval, in: 15...60, step: 5)
+                            .tint(NetworkTheme.accent)
+
+                        Text("iOS controls actual frequency; this sets the minimum interval")
+                            .font(.system(size: 11, design: .rounded))
+                            .foregroundStyle(NetworkTheme.textTertiary)
+                    }
+
+                    Divider()
+                        .background(NetworkTheme.textTertiary.opacity(0.2))
+
+                    VStack(alignment: .leading, spacing: 8) {
+                        Toggle(isOn: $backgroundMonitoringWiFiOnly) {
+                            Text("WiFi Only")
+                                .font(.system(size: 14, weight: .medium, design: .rounded))
+                                .foregroundStyle(NetworkTheme.textSecondary)
+                        }
+                        .tint(NetworkTheme.accent)
+
+                        Text("Only run background checks when connected to WiFi")
+                            .font(.system(size: 11, design: .rounded))
+                            .foregroundStyle(NetworkTheme.textTertiary)
+                    }
                 }
             }
         }

@@ -68,6 +68,20 @@ struct SessionCard: View {
                 HStack {
                     NetworkTypeIndicator(networkType: session.networkType)
 
+                    if session.isBackgroundSession {
+                        HStack(spacing: 4) {
+                            Image(systemName: "moon.fill")
+                                .font(.system(size: 10))
+                            Text("BG")
+                                .font(.system(size: 10, weight: .semibold, design: .rounded))
+                        }
+                        .foregroundStyle(NetworkTheme.accentYellow)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(NetworkTheme.accentYellow.opacity(0.15))
+                        .clipShape(Capsule())
+                    }
+
                     if let score = session.qualityScore {
                         qualityBadge(score: score, tier: session.qualityResult.tier)
                     }

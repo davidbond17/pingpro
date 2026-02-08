@@ -11,6 +11,9 @@ extension UserDefaults {
         static let latencyThreshold = "latencyThreshold"
         static let packetLossThreshold = "packetLossThreshold"
         static let alertOnNetworkChange = "alertOnNetworkChange"
+        static let backgroundMonitoringEnabled = "backgroundMonitoringEnabled"
+        static let backgroundMonitoringInterval = "backgroundMonitoringInterval"
+        static let backgroundMonitoringWiFiOnly = "backgroundMonitoringWiFiOnly"
     }
 }
 
@@ -57,4 +60,13 @@ struct AppSettings {
 
     @AppStorage(UserDefaults.Keys.alertOnNetworkChange)
     static var alertOnNetworkChange: Bool = true
+
+    @AppStorage(UserDefaults.Keys.backgroundMonitoringEnabled)
+    static var backgroundMonitoringEnabled: Bool = false
+
+    @AppStorage(UserDefaults.Keys.backgroundMonitoringInterval)
+    static var backgroundMonitoringInterval: Double = 15.0
+
+    @AppStorage(UserDefaults.Keys.backgroundMonitoringWiFiOnly)
+    static var backgroundMonitoringWiFiOnly: Bool = true
 }
