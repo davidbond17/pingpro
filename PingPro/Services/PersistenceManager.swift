@@ -21,7 +21,17 @@ final class PersistenceManager {
         do {
             container = try ModelContainer(for: schema, configurations: [config])
         } catch {
-            fatalError("Failed to create ModelContainer: \(error)")
+            // If the store is corrupted, attempt recovery with a fresh in-memory store
+            // so the app doesn't crash. Data will be lost but user can continue.
+            let fallbackConfig = ModelConfiguration(
+                schema: schema,
+                isStoredInMemoryOnly: true
+            )
+            do {
+                container = try ModelContainer(for: schema, configurations: [fallbackConfig])
+            } catch {
+                fatalError("Failed to create even an in-memory ModelContainer: \(error)")
+            }
         }
     }
 }

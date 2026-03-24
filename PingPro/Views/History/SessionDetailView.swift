@@ -9,9 +9,20 @@ struct SessionDetailView: View {
     @State private var showDeleteAlert = false
 
     var body: some View {
-        ScrollView {
+        ZStack {
+            NetworkBackground()
+
+            ScrollView {
                 VStack(spacing: 24) {
                     header
+
+                    QualityScoreView(
+                        score: session.qualityResult.score,
+                        tier: session.qualityResult.tier,
+                        currentLatency: session.avgLatency,
+                        packetLoss: session.packetLoss,
+                        isAnimated: false
+                    )
 
                     GlassCard {
                         PingChartView(
@@ -31,6 +42,7 @@ struct SessionDetailView: View {
                 }
                 .padding()
                 .padding(.top)
+            }
         }
         .alert("Delete Session", isPresented: $showDeleteAlert) {
             Button("Cancel", role: .cancel) {}

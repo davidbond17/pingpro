@@ -74,16 +74,26 @@ final class PingService {
             return false
         }
 
-        if let url = buildURL(from: cleanHost), url.host != nil {
-            return true
-        }
-
-        let ipPattern = "^([0-9]{1,3}\\.){3}[0-9]{1,3}$"
+        // Check for valid IP address with proper octet ranges (0-255)
+        let ipPattern = "^([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,3})$"
         if let regex = try? NSRegularExpression(pattern: ipPattern) {
             let range = NSRange(location: 0, length: cleanHost.utf16.count)
-            if regex.firstMatch(in: cleanHost, range: range) != nil {
-                return true
+            if let match = regex.firstMatch(in: cleanHost, range: range) {
+                let octetsValid = (1...4).allSatisfy { i in
+                    let octetRange = match.range(at: i)
+                    if let swiftRange = Range(octetRange, in: cleanHost),
+                       let value = Int(cleanHost[swiftRange]) {
+                        return value >= 0 && value <= 255
+                    }
+                    return false
+                }
+                return octetsValid
             }
+        }
+
+        // Check for valid hostname/URL
+        if let url = buildURL(from: cleanHost), url.host != nil {
+            return true
         }
 
         return false

@@ -16,6 +16,10 @@ struct MonitorView: View {
                         .padding(.horizontal, 20)
                         .padding(.top, 8)
 
+                    if !viewModel.isConnected {
+                        noConnectionView
+                    }
+
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 12) {
                             QualityScoreView(
@@ -65,14 +69,27 @@ struct MonitorView: View {
                 viewModel = PingMonitorViewModel(modelContext: modelContext)
             }
         }
-        .onDisappear {
-            viewModel?.cleanup()
-        }
         .onChange(of: scenePhase) {
-            if scenePhase == .background || scenePhase == .inactive {
+            if scenePhase == .background {
                 viewModel?.cleanup()
             }
         }
+    }
+
+    private var noConnectionView: some View {
+        HStack(spacing: 10) {
+            Image(systemName: "wifi.slash")
+                .font(.system(size: 16, weight: .semibold))
+            Text("No network connection")
+                .font(.system(size: 14, weight: .medium, design: .rounded))
+        }
+        .foregroundStyle(.white)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 10)
+        .frame(maxWidth: .infinity)
+        .background(NetworkTheme.accentRed.opacity(0.8))
+        .padding(.horizontal, 20)
+        .padding(.top, 4)
     }
 
     private func headerSection(viewModel: PingMonitorViewModel) -> some View {

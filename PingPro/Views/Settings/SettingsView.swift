@@ -88,6 +88,9 @@ struct SettingsView: View {
                             .font(.system(size: 16, design: .monospaced))
                             .textFieldStyle(.plain)
                             .foregroundStyle(NetworkTheme.textPrimary)
+                            .autocorrectionDisabled()
+                            .textInputAutocapitalization(.never)
+                            .keyboardType(.URL)
                             .padding(12)
                             .background(NetworkTheme.backgroundCard)
                             .clipShape(RoundedRectangle(cornerRadius: 8))
@@ -347,31 +350,49 @@ struct SettingsView: View {
         }
     }
 
+    private var appVersion: String {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+        return "\(version) (\(build))"
+    }
+
     private var aboutSection: some View {
         GlassCard {
             VStack(alignment: .leading, spacing: 16) {
                 sectionHeader(title: "About")
 
-                HStack {
-                    Text("Version")
-                        .font(.system(size: 14, design: .rounded))
-                        .foregroundStyle(NetworkTheme.textSecondary)
+                HStack(spacing: 12) {
+                    Image(systemName: "network")
+                        .font(.system(size: 28, weight: .medium))
+                        .foregroundStyle(NetworkTheme.accent)
+                        .frame(width: 44, height: 44)
+                        .background(NetworkTheme.accent.opacity(0.12))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("PingPro")
+                            .font(.system(size: 16, weight: .bold, design: .rounded))
+                            .foregroundStyle(NetworkTheme.textPrimary)
+
+                        Text("Network Monitor")
+                            .font(.system(size: 12, design: .rounded))
+                            .foregroundStyle(NetworkTheme.textSecondary)
+                    }
 
                     Spacer()
 
-                    Text("1.0.0")
-                        .font(.system(size: 14, weight: .semibold, design: .monospaced))
-                        .foregroundStyle(NetworkTheme.textPrimary)
+                    Text(appVersion)
+                        .font(.system(size: 12, weight: .medium, design: .monospaced))
+                        .foregroundStyle(NetworkTheme.textTertiary)
                 }
 
-                Link(destination: URL(string: "https://github.com/davidbond17/pingpro")!) {
-                    HStack {
-                        Image(systemName: "link")
-                        Text("View on GitHub")
-                    }
-                    .font(.system(size: 14, weight: .medium, design: .rounded))
-                    .foregroundStyle(NetworkTheme.accent)
-                }
+                Divider()
+                    .background(NetworkTheme.textTertiary.opacity(0.2))
+
+                Text("Real-time network monitoring with connection quality scoring, activity recommendations, and smart alerts.")
+                    .font(.system(size: 13, design: .rounded))
+                    .foregroundStyle(NetworkTheme.textSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
     }

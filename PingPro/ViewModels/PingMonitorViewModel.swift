@@ -9,6 +9,7 @@ final class PingMonitorViewModel {
     private(set) var currentSession: PingSession?
     private(set) var recentResults: [PingResult] = []
     private(set) var currentNetworkType: NetworkType = .unknown
+    private(set) var isConnected: Bool = true
 
     var targetHost: String = AppSettings.targetHost
     var pingInterval: TimeInterval = AppSettings.pingInterval
@@ -35,8 +36,10 @@ final class PingMonitorViewModel {
         self.networkMonitor = NetworkMonitor()
         self.pingService = PingService.shared
         self.currentNetworkType = networkMonitor.currentNetworkType
+        self.isConnected = networkMonitor.isConnected
 
         fixOrphanedSessions()
+        purgeExpiredSessions()
     }
 
     private func fixOrphanedSessions() {
@@ -53,6 +56,25 @@ final class PingMonitorViewModel {
                 }
             }
 
+            try? modelContext.save()
+        }
+    }
+
+    private func purgeExpiredSessions() {
+        let retentionDays = AppSettings.dataRetentionDays
+        guard retentionDays > 0,
+              let cutoffDate = Calendar.current.date(byAdding: .day, value: -retentionDays, to: Date()) else {
+            return
+        }
+
+        let descriptor = FetchDescriptor<PingSession>(
+            predicate: #Predicate { $0.startTime < cutoffDate }
+        )
+
+        if let expiredSessions = try? modelContext.fetch(descriptor), !expiredSessions.isEmpty {
+            for session in expiredSessions {
+                modelContext.delete(session)
+            }
             try? modelContext.save()
         }
     }
@@ -120,6 +142,7 @@ final class PingMonitorViewModel {
                 guard let self = self else { break }
 
                 self.currentNetworkType = self.networkMonitor.currentNetworkType
+                self.isConnected = self.networkMonitor.isConnected
 
                 await self.executePing()
 
